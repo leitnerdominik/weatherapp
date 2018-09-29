@@ -9,8 +9,10 @@
 # production
 /build
 
+
 /config
 /scripts
+/public
 
 # misc
 .DS_Store
