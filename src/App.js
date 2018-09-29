@@ -11,6 +11,7 @@ const App = () => (
       <code>src/App.js</code>
       and save to reload.
     </p>
+    <h6 className={classes.AppFooter}>Just a Test :D</h6>
   </div>
 );
 
