@@ -10,8 +10,6 @@
 /build
 
 
-/config
-/scripts
 /public
 
 # misc
@@ -28,3 +26,9 @@ yarn-error.log*
 # eslint
 .eslintignore
 .eslintrc.js
+
+
+#firebase
+.firebaserc
+firebase.json
+.firebase
