@@ -1,0 +1,20 @@
+.InputFieldContainer {
+  width: 100%;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.Input {
+  width: 200px;
+}
+
+.SearchButton {
+  background: transparent;
+  outline: none;
+  border: none;
+  vertical-align: bottom;
+}
+
+.SearchButton:hover {
+  cursor: pointer;
+}
