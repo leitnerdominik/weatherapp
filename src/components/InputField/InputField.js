@@ -1,6 +1,7 @@
 import React from 'react';
 import { TextField } from '@material-ui/core';
 import Search from '@material-ui/icons/Search';
+import PropTypes from 'prop-types';
 
 import classes from './InputField.css';
 
@@ -23,4 +24,10 @@ const inputField = (props) => {
     </div>
   );
 };
+
+inputField.propTypes = {
+  change: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired,
+};
+
 export default inputField;

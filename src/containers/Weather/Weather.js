@@ -12,6 +12,7 @@ class Weather extends Component {
     this.state = {
       term: '',
       searchTerm: '',
+      weatherItems: [],
     };
 
     this.inputChangeHandler = this.inputChangeHandler.bind(this);
@@ -28,7 +29,13 @@ class Weather extends Component {
   getWeatherData() {
     const { searchTerm } = this.state;
     axios.get(`data/2.5/forecast?q=${searchTerm}&appid=${API_KEY}`)
-      .then(respsonse => console.log(respsonse))
+      .then((response) => {
+        const dailyWeatherData = response.data.list.filter((weatherObj) => {
+          const res = weatherObj.dt_txt.match(/\d{4}-\d{2}-\d{2}\s12:00:00/);
+          return res;
+        });
+        this.setState({ weatherItems: dailyWeatherData });
+      })
       .catch(error => console.log(error));
   }
 
@@ -38,12 +45,12 @@ class Weather extends Component {
 
 
   render() {
-    const { term } = this.state;
+    const { term, weatherItems } = this.state;
 
     return (
       <div>
         <InputField change={this.inputChangeHandler} submit={this.onSubmitHandler} value={term} />
-        <WeatherItems />
+        {weatherItems.length > 0 ? <WeatherItems items={weatherItems} /> : null}
       </div>
 
     );

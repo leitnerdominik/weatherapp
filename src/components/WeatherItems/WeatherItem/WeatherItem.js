@@ -1,8 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-// import { withStyles } from '@material-ui/core/styles';
-// import PropTypes from 'prop-types';
 
 import classes from './WeatherItem.css';
 
@@ -10,11 +8,13 @@ import classes from './WeatherItem.css';
 
 
 const weatherItem = (props) => {
-  const { value } = props;
+  const { minTemp, maxTemp, weatherTitle } = props;
   return (
     <Grid item>
       <Paper className={classes.Paper}>
-        {value}
+        <p>{weatherTitle}</p>
+        <p>{minTemp}</p>
+        <p>{maxTemp}</p>
       </Paper>
     </Grid>
   );
