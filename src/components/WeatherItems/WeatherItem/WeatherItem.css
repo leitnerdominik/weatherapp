@@ -1,4 +1,21 @@
 .Paper {
   width: 200px;
   height: 280px;
+  padding: 5px;
+}
+
+.Paper p {
+  margin: 0;
+  padding: 0;
+}
+
+.IconContainer {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+  display: inline-block;
+}
+
+.IconContainer i {
+  font-size: 32px;
 }

@@ -8,13 +8,13 @@ import Aux from '../../hoc/Auxiliary/Auxiliary';
 import { formatDate, kelvinToCelsius } from '../../shared/util';
 import API_KEY from '../../api_key';
 
-
 const prepData = (weatherArr) => {
   const weatherData = weatherArr.map(item => ({
     id: item.dt,
     temp: kelvinToCelsius(item.main.temp),
     weatherType: item.weather[0].main,
     weatherDate: formatDate(item.dt_txt),
+    iconId: item.weather[0].id,
   }));
 
   return weatherData;

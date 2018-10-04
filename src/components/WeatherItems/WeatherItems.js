@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
 import WeatherItem from './WeatherItem/WeatherItem';
+import weatherIcons from '../../icons.json';
 
 /* eslint react/forbid-prop-types: 0 */
 
@@ -15,6 +16,24 @@ const styles = () => ({
   },
 });
 
+const mapToWeatherJson = (iconId) => {
+  const prefix = 'wi wi-';
+  const { label } = weatherIcons[iconId];
+  let { icon } = weatherIcons[iconId];
+
+  // If we are not in the ranges mentioned above, add a day/night prefix.
+  if (!(iconId > 699 && iconId < 800) && !(iconId > 899 && iconId < 1000)) {
+    icon = `day-${icon}`;
+  }
+
+  console.log(label);
+  // Finally tack on the prefix.
+  return {
+    iconClass: prefix + icon,
+    weatherLabel: label,
+  };
+};
+
 const weatherItems = (props) => {
   const { classes, items } = props;
   return (
@@ -22,13 +41,18 @@ const weatherItems = (props) => {
       <Grid container className={classes.root} spacing={16}>
         <Grid item xs={12}>
           <Grid container justify="center" spacing={16}>
-            {items.map(item => (
-              <WeatherItem
-                key={item.id}
-                weatherDate={item.weatherDate}
-                temp={item.temp}
-                weatherTitle={item.weatherType}
-              />))}
+            {items.map((item) => {
+              const weatherType = mapToWeatherJson(item.iconId);
+              return (
+                <WeatherItem
+                  key={item.id}
+                  weatherDate={item.weatherDate}
+                  temp={item.temp}
+                  weatherTitle={item.weatherType}
+                  iconClass={weatherType.iconClass}
+                  weatherLabel={weatherType.weatherLabel}
+                />);
+            })}
           </Grid>
         </Grid>
       </Grid>
