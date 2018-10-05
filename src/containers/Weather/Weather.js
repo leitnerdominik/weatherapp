@@ -12,12 +12,30 @@ const prepData = (weatherArr) => {
   const weatherData = weatherArr.map(item => ({
     id: item.dt,
     temp: kelvinToCelsius(item.main.temp),
-    weatherType: item.weather[0].main,
     weatherDate: formatDate(item.dt_txt),
     iconId: item.weather[0].id,
   }));
 
   return weatherData;
+};
+
+const getAvarageData = (weatherArr, searchArr) => {
+  const tmpArr = [];
+  searchArr.forEach((date) => {
+    const data = weatherArr.filter(item => item.dt_txt.includes(date));
+    tmpArr.push(data);
+  });
+
+  console.log(tmpArr);
+  return tmpArr;
+};
+
+const getWeatherDates = (weatherArr) => {
+  const data = weatherArr.map((item) => {
+    const weatherDate = item.dt_txt;
+    return weatherDate.slice(0, 9 + 1);
+  });
+  return data;
 };
 
 class Weather extends Component {
@@ -54,6 +72,9 @@ class Weather extends Component {
         });
 
         const fiveDayForecast = prepData(dailyWeatherData);
+        const weatherDates = getWeatherDates(dailyWeatherData);
+        const avarageData = getAvarageData(response.data.list, weatherDates);
+        console.log(avarageData);
 
         this.setState({ weatherItems: fiveDayForecast, city: name, country });
       })

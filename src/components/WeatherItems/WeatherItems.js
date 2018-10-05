@@ -26,7 +26,6 @@ const mapToWeatherJson = (iconId) => {
     icon = `day-${icon}`;
   }
 
-  console.log(label);
   // Finally tack on the prefix.
   return {
     iconClass: prefix + icon,
@@ -48,7 +47,6 @@ const weatherItems = (props) => {
                   key={item.id}
                   weatherDate={item.weatherDate}
                   temp={item.temp}
-                  weatherTitle={item.weatherType}
                   iconClass={weatherType.iconClass}
                   weatherLabel={weatherType.weatherLabel}
                 />);

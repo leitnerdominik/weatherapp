@@ -12,10 +12,11 @@
 .IconContainer {
   width: 100%;
   text-align: center;
-  margin-top: 20px;
+  margin: 20px 0;
   display: inline-block;
 }
 
 .IconContainer i {
-  font-size: 32px;
+  font-size: 64px;
+  margin-bottom: 20px;
 }
