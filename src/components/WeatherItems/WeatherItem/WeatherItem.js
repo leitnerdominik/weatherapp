@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 
+
 import classes from './WeatherItem.css';
 
 /* eslint react/forbid-prop-types: 0 */
