@@ -5,38 +5,73 @@ import InputField from '../../components/InputField/InputField';
 import WeatherItems from '../../components/WeatherItems/WeatherItems';
 import Title from '../../components/Title/Title';
 import Aux from '../../hoc/Auxiliary/Auxiliary';
-import { formatDate, kelvinToCelsius } from '../../shared/util';
+import { formatDate, kelvinToCelsius, getMostFrequentItem } from '../../shared/util';
 import API_KEY from '../../api_key';
 
-const prepData = (weatherArr) => {
-  const weatherData = weatherArr.map(item => ({
-    id: item.dt,
-    temp: kelvinToCelsius(item.main.temp),
-    weatherDate: formatDate(item.dt_txt),
-    iconId: item.weather[0].id,
-  }));
 
-  return weatherData;
-};
-
-const getAvarageData = (weatherArr, searchArr) => {
-  const tmpArr = [];
-  searchArr.forEach((date) => {
-    const data = weatherArr.filter(item => item.dt_txt.includes(date));
-    tmpArr.push(data);
-  });
-
-  console.log(tmpArr);
-  return tmpArr;
-};
-
+// returns an array of 5 dates
+// ["2018-10-06", "2018-10-07", "2018-10-08", "2018-10-09", "2018-10-10"]
 const getWeatherDates = (weatherArr) => {
   const data = weatherArr.map((item) => {
     const weatherDate = item.dt_txt;
     return weatherDate.slice(0, 9 + 1);
   });
-  return data;
+  return new Set(data);
 };
+
+
+// returns a 2d array of each weatherforecast
+const getWeatherDays = (weatherArr) => {
+  const searchArr = getWeatherDates(weatherArr);
+  const tmpArr = [];
+  searchArr.forEach((date) => {
+    const data = weatherArr.filter(item => item.dt_txt.includes(date));
+    tmpArr.push(data);
+  });
+  return tmpArr;
+};
+
+const getAvarageData = (weatherDaysArr) => {
+  const tmpArr = [];
+  weatherDaysArr.forEach((weatherDay) => {
+    const tempArr = [];
+    const weatherTypeArr = [];
+    weatherDay.forEach((weatherItem) => {
+      const currentTemp = weatherItem.main.temp;
+      // const currentMaxTemp = weatherItem.main.temp_max;
+      const currentWeatherType = weatherItem.weather[0].description;
+      const iconId = weatherItem.weather[0].id;
+      const currentDate = weatherItem.dt_txt;
+      const currentId = weatherItem.dt;
+
+      tempArr.push(currentTemp);
+      weatherTypeArr.push({
+        weatherType: currentWeatherType,
+        iconId,
+        date: currentDate,
+        id: currentId,
+      });
+    });
+
+    const mostFrequentWeather = getMostFrequentItem(weatherTypeArr, 'weatherType');
+    const minTemp = kelvinToCelsius(Math.min(...tempArr));
+    const maxTemp = kelvinToCelsius(Math.max(...tempArr));
+
+    const tempObj = {
+      // weatherType: mostFrequentWeather.weatherType,
+      iconId: mostFrequentWeather.iconId,
+      id: mostFrequentWeather.id,
+      weatherDate: formatDate(mostFrequentWeather.date),
+      minTemp,
+      maxTemp,
+    };
+
+    tmpArr.push(tempObj);
+  });
+
+  return tmpArr;
+};
+
 
 class Weather extends Component {
   constructor(props) {
@@ -66,17 +101,13 @@ class Weather extends Component {
       .then((response) => {
         console.log(response);
         const { name, country } = response.data.city;
-        const dailyWeatherData = response.data.list.filter((weatherObj) => {
-          const res = weatherObj.dt_txt.match(/\d{4}-\d{2}-\d{2}\s12:00:00/);
-          return res;
-        });
+        const weatherDates = getWeatherDays(response.data.list);
+        let avarageDailyWeatherData = getAvarageData(weatherDates);
 
-        const fiveDayForecast = prepData(dailyWeatherData);
-        const weatherDates = getWeatherDates(dailyWeatherData);
-        const avarageData = getAvarageData(response.data.list, weatherDates);
-        console.log(avarageData);
+        // output the first 5 days
+        avarageDailyWeatherData = avarageDailyWeatherData.slice(0, 5);
 
-        this.setState({ weatherItems: fiveDayForecast, city: name, country });
+        this.setState({ weatherItems: avarageDailyWeatherData, city: name, country });
       })
       .catch(error => console.log(error));
   }

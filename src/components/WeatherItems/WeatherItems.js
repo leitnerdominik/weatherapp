@@ -46,7 +46,8 @@ const weatherItems = (props) => {
                 <WeatherItem
                   key={item.id}
                   weatherDate={item.weatherDate}
-                  temp={item.temp}
+                  minTemp={item.minTemp}
+                  maxTemp={item.maxTemp}
                   iconClass={weatherType.iconClass}
                   weatherLabel={weatherType.weatherLabel}
                 />);

@@ -11,7 +11,7 @@ import classes from './WeatherItem.css';
 
 const weatherItem = (props) => {
   const {
-    temp, weatherDate, iconClass, weatherLabel,
+    minTemp, maxTemp, weatherDate, iconClass, weatherLabel,
   } = props;
   return (
     <Grid item>
@@ -21,14 +21,19 @@ const weatherItem = (props) => {
           <i className={iconClass} />
           <p>{weatherLabel}</p>
         </div>
-        <p>{temp}</p>
+        <p>
+          {`${minTemp}° C`}
+          { ' / ' }
+          {`${maxTemp}° C`}
+        </p>
       </Paper>
     </Grid>
   );
 };
 
 weatherItem.propTypes = {
-  temp: PropTypes.number.isRequired,
+  minTemp: PropTypes.number.isRequired,
+  maxTemp: PropTypes.number.isRequired,
   weatherDate: PropTypes.string.isRequired,
   iconClass: PropTypes.string.isRequired,
   weatherLabel: PropTypes.string.isRequired,
