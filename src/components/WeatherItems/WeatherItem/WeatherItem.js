@@ -32,8 +32,8 @@ const weatherItem = (props) => {
 };
 
 weatherItem.propTypes = {
-  minTemp: PropTypes.number.isRequired,
-  maxTemp: PropTypes.number.isRequired,
+  minTemp: PropTypes.string.isRequired,
+  maxTemp: PropTypes.string.isRequired,
   weatherDate: PropTypes.string.isRequired,
   iconClass: PropTypes.string.isRequired,
   weatherLabel: PropTypes.string.isRequired,

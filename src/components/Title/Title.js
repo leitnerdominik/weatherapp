@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const title = (props) => {
   const { titleCity, titleCountry } = props;
@@ -14,6 +15,11 @@ const title = (props) => {
       { titleCountry }
     </h1>
   );
+};
+
+title.propTypes = {
+  titleCity: PropTypes.string.isRequired,
+  titleCountry: PropTypes.string.isRequired,
 };
 
 export default title;

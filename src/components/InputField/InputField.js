@@ -26,6 +26,7 @@ const inputField = (props) => {
 };
 
 inputField.propTypes = {
+  value: PropTypes.string.isRequired,
   change: PropTypes.func.isRequired,
   submit: PropTypes.func.isRequired,
 };
