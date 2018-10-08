@@ -11,11 +11,11 @@ import classes from './WeatherItem.css';
 
 const weatherItem = (props) => {
   const {
-    minTemp, maxTemp, weatherDate, iconClass, weatherLabel,
+    id, minTemp, maxTemp, weatherDate, iconClass, weatherLabel, clicked,
   } = props;
   return (
     <Grid item>
-      <Paper className={classes.Paper}>
+      <Paper className={classes.Paper} onClick={() => clicked(id)}>
         <p>{weatherDate}</p>
         <div className={classes.IconContainer}>
           <i className={iconClass} />
@@ -32,11 +32,13 @@ const weatherItem = (props) => {
 };
 
 weatherItem.propTypes = {
+  id: PropTypes.number.isRequired,
   minTemp: PropTypes.string.isRequired,
   maxTemp: PropTypes.string.isRequired,
   weatherDate: PropTypes.string.isRequired,
   iconClass: PropTypes.string.isRequired,
   weatherLabel: PropTypes.string.isRequired,
+  clicked: PropTypes.func.isRequired,
 };
 
 export default weatherItem;

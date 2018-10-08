@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from '../../axios-weather';
 
 import InputField from '../../components/InputField/InputField';
-import WeatherItems from '../../components/WeatherItems/WeatherItems';
+import WeatherItems from '../WeatherItems/WeatherItems';
 import Title from '../../components/Title/Title';
 import Aux from '../../hoc/Auxiliary/Auxiliary';
 import { formatDate, kelvinToCelsius, getMostFrequentItem } from '../../shared/util';

@@ -1,11 +1,15 @@
 import React from 'react';
-import Weather from './containers/Weather/Weather';
+import { BrowserRouter } from 'react-router-dom';
+
 import Aux from './hoc/Auxiliary/Auxiliary';
+import Weather from './containers/Weather/Weather';
 
 const App = () => (
-  <Aux>
-    <Weather />
-  </Aux>
+  <BrowserRouter>
+    <Aux>
+      <Weather />
+    </Aux>
+  </BrowserRouter>
 );
 
 export default App;
