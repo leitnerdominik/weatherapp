@@ -8,6 +8,7 @@ const title = (props) => {
       textAlign: 'center',
       marginTop: '30px',
       marginBottom: '0',
+      color: 'white',
     }}
     >
       { titleCity }
