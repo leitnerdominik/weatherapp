@@ -1,23 +1,36 @@
 import React from 'react';
 import { TextField } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import Search from '@material-ui/icons/Search';
 import PropTypes from 'prop-types';
 
-import classes from './InputField.css';
+import cssClasses from './InputField.css';
+
+const styles = ({
+  shrink: {
+    color: '#1EE6F6 !important',
+  },
+});
 
 const inputField = (props) => {
-  const { value, change, submit } = props;
+  const { value, change, submit, classes } = props;
+  console.log(classes);
   return (
-    <div className={classes.InputFieldContainer}>
+    <div className={cssClasses.InputFieldContainer}>
       <form onSubmit={submit}>
         <TextField
           id="inputField"
-          className={classes.Input}
+          className={cssClasses.TextField}
+          InputLabelProps={{
+            classes: {
+              shrink: classes.shrink,
+            },
+          }}
           label="Search city"
           value={value}
           onChange={change}
         />
-        <button type="submit" onClick={submit} className={classes.SearchButton}>
+        <button type="submit" onClick={submit} className={cssClasses.SearchButton}>
           <Search />
         </button>
       </form>
@@ -31,4 +44,4 @@ inputField.propTypes = {
   submit: PropTypes.func.isRequired,
 };
 
-export default inputField;
+export default withStyles(styles)(inputField);

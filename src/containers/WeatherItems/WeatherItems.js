@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import WeatherItem from '../../components/WeatherItem/WeatherItem';
 import weatherIcons from '../../icons.json';
-import DetailedWeather from '../../components/DetailedWeather/DetailedWeather';
+
 
 /* eslint react/forbid-prop-types: 0 */
 
@@ -36,21 +36,15 @@ const mapToWeatherJson = (iconId) => {
 };
 
 class WeatherItems extends Component {
-
   constructor(props) {
     super(props);
 
     this.weatherSelectedHandler = this.weatherSelectedHandler.bind(this);
   }
 
-  componentDidMount() {
-    console.log('scheiss eslint');
-    console.log(this.props);
-  }
-
   weatherSelectedHandler(id) {
-    const pathName = `/${id}`;
-    // <Route path={pathName} exact component={DetailedWeather} />
+    const { history } = this.props;
+    history.push({ pathname: `/${id}` });
   }
 
   render() {
@@ -87,4 +81,4 @@ WeatherItems.propTypes = {
   items: PropTypes.array.isRequired,
 };
 
-export default withStyles(styles)(WeatherItems);
+export default withStyles(styles)(withRouter(WeatherItems));

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import axios from '../../axios-weather';
 
 import InputField from '../../components/InputField/InputField';
@@ -6,6 +8,9 @@ import WeatherItems from '../WeatherItems/WeatherItems';
 import Title from '../../components/Title/Title';
 import Aux from '../../hoc/Auxiliary/Auxiliary';
 import { formatDate, kelvinToCelsius, getMostFrequentItem } from '../../shared/util';
+import * as actions from '../../store/actions/weather';
+
+
 import API_KEY from '../../api_key';
 
 
@@ -97,19 +102,9 @@ class Weather extends Component {
 
   getWeatherData() {
     const { searchTerm } = this.state;
-    axios.get(`data/2.5/forecast?q=${searchTerm}&appid=${API_KEY}`)
-      .then((response) => {
-        console.log(response);
-        const { name, country } = response.data.city;
-        const weatherDates = getWeatherDays(response.data.list);
-        let avarageDailyWeatherData = getAvarageData(weatherDates);
+    const { onFetchWeather } = this.props;
 
-        // output the first 5 days
-        avarageDailyWeatherData = avarageDailyWeatherData.slice(0, 5);
-
-        this.setState({ weatherItems: avarageDailyWeatherData, city: name, country });
-      })
-      .catch(error => console.log(error));
+    onFetchWeather(searchTerm);
   }
 
   inputChangeHandler(event) {
@@ -134,4 +129,10 @@ class Weather extends Component {
   }
 }
 
-export default Weather;
+const mapDispatchToProps = dispatch => (
+  {
+    onFetchWeather: searchTerm => dispatch(actions.fetchWeather(searchTerm)),
+  }
+);
+
+export default connect(null, mapDispatchToProps)(Weather);

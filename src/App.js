@@ -1,15 +1,14 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
-import Aux from './hoc/Auxiliary/Auxiliary';
 import Weather from './containers/Weather/Weather';
+import DetailedWeather from './components/DetailedWeather/DetailedWeather';
 
 const App = () => (
-  <BrowserRouter>
-    <Aux>
-      <Weather />
-    </Aux>
-  </BrowserRouter>
+  <Switch>
+    <Route path="/" exact component={Weather} />
+    <Route path="/:id" exact component={DetailedWeather} />
+  </Switch>
 );
 
 export default App;
