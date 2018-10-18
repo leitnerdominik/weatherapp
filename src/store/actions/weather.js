@@ -26,6 +26,13 @@ export const fetchWeatherFailed = (errorCode, errorMessage) => (
   }
 );
 
+export const setAvarageWeatherData = fiveDayForecast => (
+  {
+    type: actionTypes.SET_AVARAGE_WEATHER_DATA,
+    fiveDayForecast,
+  }
+);
+
 export const fetchWeather = searchTerm => (
   (dispatch) => {
     dispatch(fetchWeatherStart());
@@ -34,6 +41,7 @@ export const fetchWeather = searchTerm => (
         const { name, country } = response.data.city;
         const fiveDayForecast = response.data.list;
         dispatch(fetchWeatherSuccess(name, country, fiveDayForecast));
+        dispatch(setAvarageWeatherData(fiveDayForecast));
       })
       .catch((error) => {
         const { cod, message } = error.response.data;

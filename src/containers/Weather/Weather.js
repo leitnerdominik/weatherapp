@@ -1,81 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import axios from '../../axios-weather';
-
 import InputField from '../../components/InputField/InputField';
 import WeatherItems from '../WeatherItems/WeatherItems';
 import Title from '../../components/Title/Title';
 import Aux from '../../hoc/Auxiliary/Auxiliary';
-import { formatDate, kelvinToCelsius, getMostFrequentItem } from '../../shared/util';
 import * as actions from '../../store/actions/weather';
-
-
-import API_KEY from '../../api_key';
-
-
-// returns an array of 5 dates
-// ["2018-10-06", "2018-10-07", "2018-10-08", "2018-10-09", "2018-10-10"]
-const getWeatherDates = (weatherArr) => {
-  const data = weatherArr.map((item) => {
-    const weatherDate = item.dt_txt;
-    return weatherDate.slice(0, 9 + 1);
-  });
-  return new Set(data);
-};
-
-
-// returns a 2d array of each weatherforecast
-const getWeatherDays = (weatherArr) => {
-  const searchArr = getWeatherDates(weatherArr);
-  const tmpArr = [];
-  searchArr.forEach((date) => {
-    const data = weatherArr.filter(item => item.dt_txt.includes(date));
-    tmpArr.push(data);
-  });
-  return tmpArr;
-};
-
-const getAvarageData = (weatherDaysArr) => {
-  const tmpArr = [];
-  weatherDaysArr.forEach((weatherDay) => {
-    const tempArr = [];
-    const weatherTypeArr = [];
-    weatherDay.forEach((weatherItem) => {
-      const currentTemp = weatherItem.main.temp;
-      // const currentMaxTemp = weatherItem.main.temp_max;
-      const currentWeatherType = weatherItem.weather[0].description;
-      const iconId = weatherItem.weather[0].id;
-      const currentDate = weatherItem.dt_txt;
-      const currentId = weatherItem.dt;
-
-      tempArr.push(currentTemp);
-      weatherTypeArr.push({
-        weatherType: currentWeatherType,
-        iconId,
-        date: currentDate,
-        id: currentId,
-      });
-    });
-
-    const mostFrequentWeather = getMostFrequentItem(weatherTypeArr, 'weatherType');
-    const minTemp = kelvinToCelsius(Math.min(...tempArr));
-    const maxTemp = kelvinToCelsius(Math.max(...tempArr));
-
-    const tempObj = {
-      // weatherType: mostFrequentWeather.weatherType,
-      iconId: mostFrequentWeather.iconId,
-      id: mostFrequentWeather.id,
-      weatherDate: formatDate(mostFrequentWeather.date),
-      minTemp,
-      maxTemp,
-    };
-
-    tmpArr.push(tempObj);
-  });
-
-  return tmpArr;
-};
 
 
 class Weather extends Component {
@@ -84,9 +14,6 @@ class Weather extends Component {
     this.state = {
       term: '',
       searchTerm: '',
-      city: '',
-      country: '',
-      weatherItems: [],
     };
 
     this.inputChangeHandler = this.inputChangeHandler.bind(this);
@@ -112,9 +39,9 @@ class Weather extends Component {
   }
 
   render() {
-    const {
-      term, weatherItems, city, country,
-    } = this.state;
+    const { term } = this.state;
+
+    const { city, country, weatherItems } = this.props;
 
     return (
       <div>
@@ -129,10 +56,18 @@ class Weather extends Component {
   }
 }
 
+const mapStateToProps = state => (
+  {
+    city: state.city,
+    country: state.country,
+    weatherItems: state.dailyAvarageWeather,
+  }
+);
+
 const mapDispatchToProps = dispatch => (
   {
     onFetchWeather: searchTerm => dispatch(actions.fetchWeather(searchTerm)),
   }
 );
 
-export default connect(null, mapDispatchToProps)(Weather);
+export default connect(mapStateToProps, mapDispatchToProps)(Weather);
