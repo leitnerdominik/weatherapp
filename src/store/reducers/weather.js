@@ -5,7 +5,8 @@ const initalState = {
   city: '',
   country: '',
   dailyAvarageWeather: [],
-  fiveDayForeCast: [],
+  fiveDayForecast: [],
+  dayWeather: [],
   loading: false,
   errorMessage: null,
   errorCode: null,
@@ -66,6 +67,7 @@ const calcAvarageData = (forecastArr) => {
       // weatherType: mostFrequentWeather.weatherType,
       iconId: mostFrequentWeather.iconId,
       id: mostFrequentWeather.id,
+      date: mostFrequentWeather.date.slice(0, 10), // extract only date - '2018-10-21 21:00:00' => 2018-10-21
       weatherDate: formatDate(mostFrequentWeather.date),
       minTemp,
       maxTemp,
@@ -92,7 +94,7 @@ const reducer = (state = initalState, action) => {
         errorCode: null,
         city: action.city,
         country: action.country,
-        fiveDayForeCast: action.fiveDayForecast,
+        fiveDayForecast: action.fiveDayForecast,
         loading: false,
       };
     case actionTypes.FETCH_WEATHER_FAILED:
@@ -107,6 +109,14 @@ const reducer = (state = initalState, action) => {
       return {
         ...state,
         dailyAvarageWeather: dailyavgWeather,
+      };
+    }
+    case actionTypes.SET_DETAILED_WEATHER_DATA: {
+      const { fiveDayForecast } = state;
+      const dayWeather = fiveDayForecast.filter(item => item.dt_txt.includes(action.currentDate));
+      return {
+        ...state,
+        dayWeather,
       };
     }
     default:

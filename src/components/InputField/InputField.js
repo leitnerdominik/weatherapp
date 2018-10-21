@@ -13,8 +13,9 @@ const styles = ({
 });
 
 const inputField = (props) => {
-  const { value, change, submit, classes } = props;
-  console.log(classes);
+  const {
+    value, change, submit, classes,
+  } = props;
   return (
     <div className={cssClasses.InputFieldContainer}>
       <form onSubmit={submit}>

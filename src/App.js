@@ -7,7 +7,7 @@ import DetailedWeather from './components/DetailedWeather/DetailedWeather';
 const App = () => (
   <Switch>
     <Route path="/" exact component={Weather} />
-    <Route path="/:id" exact component={DetailedWeather} />
+    <Route path="/:date" exact component={DetailedWeather} />
   </Switch>
 );
 

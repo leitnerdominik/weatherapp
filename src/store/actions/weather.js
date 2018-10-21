@@ -38,6 +38,7 @@ export const fetchWeather = searchTerm => (
     dispatch(fetchWeatherStart());
     axios.get(`data/2.5/forecast?q=${searchTerm}&appid=${API_KEY}`)
       .then((response) => {
+        console.log(response);
         const { name, country } = response.data.city;
         const fiveDayForecast = response.data.list;
         dispatch(fetchWeatherSuccess(name, country, fiveDayForecast));
@@ -47,5 +48,12 @@ export const fetchWeather = searchTerm => (
         const { cod, message } = error.response.data;
         dispatch(fetchWeatherFailed(cod, message));
       });
+  }
+);
+
+export const setDetailedWeatherData = date => (
+  {
+    type: actionTypes.SET_DETAILED_WEATHER_DATA,
+    currentDate: date,
   }
 );

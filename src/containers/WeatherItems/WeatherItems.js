@@ -60,6 +60,7 @@ class WeatherItems extends Component {
                   <WeatherItem
                     key={item.id}
                     id={item.id}
+                    date={item.date}
                     weatherDate={item.weatherDate}
                     minTemp={item.minTemp}
                     maxTemp={item.maxTemp}
