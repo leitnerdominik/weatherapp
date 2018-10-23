@@ -5,6 +5,7 @@ import InputField from '../../components/InputField/InputField';
 import WeatherItems from '../WeatherItems/WeatherItems';
 import Title from '../../components/Title/Title';
 import Aux from '../../hoc/Auxiliary/Auxiliary';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import * as actions from '../../store/actions/weather';
 
 
@@ -41,16 +42,28 @@ class Weather extends Component {
   render() {
     const { term } = this.state;
 
-    const { city, country, weatherItems } = this.props;
+    const {
+      city, country, weatherItems, loading, searched,
+    } = this.props;
+
+    let weatherItemsContent = null;
+    if (searched) {
+      weatherItemsContent = <Spinner />;
+    }
+
+    if (!loading && weatherItems.length > 0) {
+      weatherItemsContent = (
+        <Aux>
+          <Title titleCity={city} titleCountry={country} />
+          <WeatherItems items={weatherItems} />
+        </Aux>
+      );
+    }
 
     return (
       <div>
         <InputField change={this.inputChangeHandler} submit={this.onSubmitHandler} value={term} />
-        {weatherItems.length > 0 ? (
-          <Aux>
-            <Title titleCity={city} titleCountry={country} />
-            <WeatherItems items={weatherItems} />
-          </Aux>) : null}
+        {weatherItemsContent}
       </div>
     );
   }
@@ -61,6 +74,8 @@ const mapStateToProps = state => (
     city: state.city,
     country: state.country,
     weatherItems: state.dailyAvarageWeather,
+    loading: state.loading,
+    searched: state.startedSearch,
   }
 );
 
