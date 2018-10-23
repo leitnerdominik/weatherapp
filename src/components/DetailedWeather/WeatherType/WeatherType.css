@@ -1,0 +1,12 @@
+.IconContainer {
+  font-size: 32px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.InfoContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  grid-row-gap: 15px;
+}
