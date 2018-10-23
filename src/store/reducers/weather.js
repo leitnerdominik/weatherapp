@@ -1,13 +1,16 @@
 import * as actionTypes from '../actions/actionTypes';
-import { formatDate, kelvinToCelsius, getMostFrequentItem } from '../../shared/util';
+import { formatDate, getMostFrequentItem } from '../../shared/util';
 
 const initalState = {
   city: '',
   country: '',
   dailyAvarageWeather: [],
   fiveDayForecast: [],
-  dayWeather: [],
+  currentDate: null,
+  hourlyWeather: [],
+  dayTempChart: [],
   loading: false,
+  startedSearch: false, // to not show the spinner at the beginning
   errorMessage: null,
   errorCode: null,
 };
@@ -60,14 +63,16 @@ const calcAvarageData = (forecastArr) => {
     const mostFrequentWeather = getMostFrequentItem(weatherTypeArr, 'weatherType');
 
     // look at the minTemp and maxTemp of the daily weather temperature
-    const minTemp = kelvinToCelsius(Math.min(...temperaturArr));
-    const maxTemp = kelvinToCelsius(Math.max(...temperaturArr));
+    const minTemp = Math.min(...temperaturArr);
+    const maxTemp = Math.max(...temperaturArr);
 
     const dailyAvarageWeatherData = {
       // weatherType: mostFrequentWeather.weatherType,
       iconId: mostFrequentWeather.iconId,
       id: mostFrequentWeather.id,
-      date: mostFrequentWeather.date.slice(0, 10), // extract only date - '2018-10-21 21:00:00' => 2018-10-21
+
+      // extract only date - '2018-10-21 21:00:00' => 2018-10-21
+      date: mostFrequentWeather.date.slice(0, 10),
       weatherDate: formatDate(mostFrequentWeather.date),
       minTemp,
       maxTemp,
@@ -86,6 +91,7 @@ const reducer = (state = initalState, action) => {
         ...state,
         errorMessage: null,
         loading: true,
+        startedSearch: true,
       };
     case actionTypes.FETCH_WEATHER_SUCCESS:
       return {
@@ -113,10 +119,40 @@ const reducer = (state = initalState, action) => {
     }
     case actionTypes.SET_DETAILED_WEATHER_DATA: {
       const { fiveDayForecast } = state;
-      const dayWeather = fiveDayForecast.filter(item => item.dt_txt.includes(action.currentDate));
+      const getDayWeather = fiveDayForecast.filter(item => (
+        item.dt_txt.includes(action.currentDate)
+      ));
+
+      const date = formatDate(getDayWeather[0].dt_txt.slice(0, 10));
+
+
+      const tempObj = {};
+      const hourlyWeatherTypeArr = [];
+      getDayWeather.forEach((item) => {
+        const currentHour = item.dt_txt.slice(11, 16);
+        tempObj[currentHour] = item.main.temp;
+        const weatherTypeObj = {
+          key: item.dt,
+          iconId: item.weather[0].id,
+          hour: currentHour,
+          humidity: item.main.humidity,
+          windSpeed: item.wind.speed,
+        };
+        hourlyWeatherTypeArr.push(weatherTypeObj);
+      });
+      const tempChartArr = [
+        {
+          name: 'Temperature',
+          data: {
+            ...tempObj,
+          },
+        },
+      ];
       return {
         ...state,
-        dayWeather,
+        dayTempChart: tempChartArr,
+        hourlyWeather: hourlyWeatherTypeArr,
+        currentDate: date,
       };
     }
     default:
