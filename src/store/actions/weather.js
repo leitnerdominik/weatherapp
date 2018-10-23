@@ -36,7 +36,7 @@ export const setAvarageWeatherData = fiveDayForecast => (
 export const fetchWeather = searchTerm => (
   (dispatch) => {
     dispatch(fetchWeatherStart());
-    axios.get(`data/2.5/forecast?q=${searchTerm}&appid=${API_KEY}`)
+    axios.get(`data/2.5/forecast?q=${searchTerm}&appid=${API_KEY}&units=metric`)
       .then((response) => {
         console.log(response);
         const { name, country } = response.data.city;
