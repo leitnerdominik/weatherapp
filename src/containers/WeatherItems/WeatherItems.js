@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import WeatherItem from '../../components/WeatherItem/WeatherItem';
-import weatherIcons from '../../icons.json';
-
+import { mapToWeatherJson } from '../../shared/util';
 
 /* eslint react/forbid-prop-types: 0 */
 
@@ -17,23 +16,6 @@ const styles = () => ({
     margin: '10px auto',
   },
 });
-
-const mapToWeatherJson = (iconId) => {
-  const prefix = 'wi wi-';
-  const { label } = weatherIcons[iconId];
-  let { icon } = weatherIcons[iconId];
-
-  // If we are not in the ranges mentioned above, add a day/night prefix.
-  if (!(iconId > 699 && iconId < 800) && !(iconId > 899 && iconId < 1000)) {
-    icon = `day-${icon}`;
-  }
-
-  // Finally tack on the prefix.
-  return {
-    iconClass: prefix + icon,
-    weatherLabel: label,
-  };
-};
 
 class WeatherItems extends Component {
   constructor(props) {
