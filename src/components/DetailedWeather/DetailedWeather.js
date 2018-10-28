@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 
 import WeatherType from './WeatherType/WeatherType';
 import { mapToWeatherJson } from '../../shared/util';
-import * as actions from '../../store/actions/weather';
+import * as actions from '../../store/actions/index';
 
 import classes from './DetailedWeather.css';
 

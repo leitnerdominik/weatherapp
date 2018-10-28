@@ -12,7 +12,6 @@ import { mapToWeatherJson } from '../../shared/util';
 const styles = () => ({
   root: {
     flexGrow: 1,
-    // width: '90%',
     margin: '10px auto',
   },
 });
