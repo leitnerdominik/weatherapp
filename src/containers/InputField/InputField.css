@@ -1,0 +1,37 @@
+.InputFieldContainer {
+  width: 100%;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.TextField {
+  width: 200px;
+}
+
+.TextField input {
+  color: white;
+}
+
+.TextField label {
+  color: white;
+}
+
+.TextField div::after {
+  border-bottom-color: #1EE6F6;
+}
+
+.TextField div::before {
+  border-bottom-color: white;
+}
+
+.SearchButton {
+  background: transparent;
+  outline: none;
+  border: none;
+  vertical-align: bottom;
+  color: white;
+}
+
+.SearchButton:hover {
+  cursor: pointer;
+}

@@ -1,0 +1,20 @@
+.Container {
+  width: 80%;
+  margin: 20px auto;
+  background: white;
+  border-radius: 8px;
+}
+.Title {
+  position: relative;
+}
+
+.Title h1 {
+  display: inline-block;
+  margin: 10px;
+}
+
+.CurrentDate {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
