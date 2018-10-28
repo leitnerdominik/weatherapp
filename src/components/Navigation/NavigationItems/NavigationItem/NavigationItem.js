@@ -6,14 +6,14 @@ import classes from './NavigationItem.css';
 
 const navigationItem = (props) => {
   const {
-    link, exact, active, children,
+    link, exact, children,
   } = props;
   return (
     <li className={classes.NavigationItem}>
       <NavLink
         to={link}
         exact={exact}
-        activeClassName={active}
+        activeClassName={classes.active}
       >
         {children}
       </NavLink>
