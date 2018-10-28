@@ -57,3 +57,9 @@ export const setDetailedWeatherData = date => (
     currentDate: date,
   }
 );
+
+export const resetErrors = () => (
+  {
+    type: actionTypes.RESET_ERRORS,
+  }
+);

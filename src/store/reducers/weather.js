@@ -90,6 +90,7 @@ const reducer = (state = initalState, action) => {
       return {
         ...state,
         errorMessage: null,
+        errorCode: null,
         loading: true,
         startedSearch: true,
       };
@@ -155,6 +156,14 @@ const reducer = (state = initalState, action) => {
         currentDate: date,
       };
     }
+    case actionTypes.RESET_ERRORS:
+      return {
+        ...state,
+        errorCode: null,
+        errorMessage: null,
+        loading: false,
+        startedSearch: false,
+      };
     default:
       return state;
   }

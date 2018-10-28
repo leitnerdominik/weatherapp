@@ -1,73 +1,47 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
-import InputField from '../../components/InputField/InputField';
+import InputField from '../InputField/InputField';
 import WeatherItems from '../WeatherItems/WeatherItems';
 import Title from '../../components/Title/Title';
 import Aux from '../../hoc/Auxiliary/Auxiliary';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import * as actions from '../../store/actions/weather';
+import ErrorHandler from '../../hoc/ErrorHandler/ErrorHandler';
+import * as actions from '../../store/actions/index';
 
 
-class Weather extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      term: '',
-      searchTerm: '',
-    };
 
-    this.inputChangeHandler = this.inputChangeHandler.bind(this);
-    this.onSubmitHandler = this.onSubmitHandler.bind(this);
-    this.getWeatherData = this.getWeatherData.bind(this);
+const weather = (props) => {
+  const {
+    city, country, weatherItems, loading, searched, errorCode, errorMessage, onFetchWeather, onErrorReset,
+  } = props;
+
+  let weatherItemsContent = null;
+  if (searched) {
+    weatherItemsContent = <Spinner />;
   }
 
-  onSubmitHandler(event) {
-    event.preventDefault();
-    const { term } = this.state;
-    this.setState({ searchTerm: term, term: '' }, this.getWeatherData);
-  }
-
-  getWeatherData() {
-    const { searchTerm } = this.state;
-    const { onFetchWeather } = this.props;
-
-    onFetchWeather(searchTerm);
-  }
-
-  inputChangeHandler(event) {
-    this.setState({ term: event.target.value });
-  }
-
-  render() {
-    const { term } = this.state;
-
-    const {
-      city, country, weatherItems, loading, searched,
-    } = this.props;
-
-    let weatherItemsContent = null;
-    if (searched) {
-      weatherItemsContent = <Spinner />;
-    }
-
-    if (!loading && weatherItems.length > 0) {
-      weatherItemsContent = (
-        <Aux>
-          <Title titleCity={city} titleCountry={country} />
-          <WeatherItems items={weatherItems} />
-        </Aux>
-      );
-    }
-
-    return (
-      <div>
-        <InputField change={this.inputChangeHandler} submit={this.onSubmitHandler} value={term} />
-        {weatherItemsContent}
-      </div>
+  if (!loading && weatherItems.length > 0) {
+    weatherItemsContent = (
+      <Aux>
+        <Title titleCity={city} titleCountry={country} />
+        <WeatherItems items={weatherItems} />
+      </Aux>
     );
   }
-}
+
+  return (
+    <div>
+      <InputField submit={onFetchWeather} />
+      <ErrorHandler
+        errorCode={errorCode}
+        errorMessage={errorMessage}
+        close={onErrorReset}
+      />
+      {weatherItemsContent}
+    </div>
+  );
+};
 
 const mapStateToProps = state => (
   {
@@ -76,13 +50,16 @@ const mapStateToProps = state => (
     weatherItems: state.dailyAvarageWeather,
     loading: state.loading,
     searched: state.startedSearch,
+    errorCode: state.errorCode,
+    errorMessage: state.errorMessage,
   }
 );
 
 const mapDispatchToProps = dispatch => (
   {
     onFetchWeather: searchTerm => dispatch(actions.fetchWeather(searchTerm)),
+    onErrorReset: () => dispatch(actions.resetErrors()),
   }
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(Weather);
+export default connect(mapStateToProps, mapDispatchToProps)(weather);
