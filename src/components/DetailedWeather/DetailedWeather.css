@@ -1,7 +1,7 @@
 .Container {
   width: 80%;
   margin: 20px auto;
-  background: white;
+  background: #ddd;
   border-radius: 8px;
 }
 .Title {
@@ -17,4 +17,10 @@
   position: absolute;
   right: 0;
   top: 0;
+}
+
+@media(max-width: 700px) {
+  .Title h1 {
+    font-size: 5vw;
+  }
 }

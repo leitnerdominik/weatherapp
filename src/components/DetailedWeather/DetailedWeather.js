@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import ReactChartkick, { AreaChart } from 'react-chartkick';
 import Chart from 'chart.js';
 import Grid from '@material-ui/core/Grid';
+import { Redirect } from 'react-router-dom';
 
 import WeatherType from './WeatherType/WeatherType';
 import { mapToWeatherJson } from '../../shared/util';
@@ -12,9 +13,16 @@ import classes from './DetailedWeather.css';
 
 class DetailedWeather extends Component {
   componentDidMount() {
-    const { onFetchDayWeather } = this.props;
+    const { onFetchDayWeather, city } = this.props;
     const { match: { params: { date } } } = this.props;
-    onFetchDayWeather(date);
+
+    // if a city is in redux, i got the Data to fetch
+    // else the user gets an error, if her reloads the page on this component
+    if (city) {
+      onFetchDayWeather(date);
+    }
+
+    console.log(this.props);
 
     ReactChartkick.addAdapter(Chart);
   }
@@ -23,8 +31,13 @@ class DetailedWeather extends Component {
     const {
       dayTempChart, city, country, hourlyWeather, date,
     } = this.props;
+
+    // if there's no data, redirect the user to the root path
+    const redirect = !city ? <Redirect to="/" /> : null;
+
     return (
       <div className={classes.Container}>
+        {redirect}
         <div className={classes.Title}>
           <h1>
             {city}
@@ -65,11 +78,11 @@ class DetailedWeather extends Component {
 
 const mapStateToProps = state => (
   {
-    city: state.city,
-    country: state.country,
-    dayTempChart: state.dayTempChart,
-    hourlyWeather: state.hourlyWeather,
-    date: state.currentDate,
+    city: state.fiveday.city,
+    country: state.fiveday.country,
+    dayTempChart: state.fiveday.dayTempChart,
+    hourlyWeather: state.fiveday.hourlyWeather,
+    date: state.fiveday.currentDate,
   }
 );
 
