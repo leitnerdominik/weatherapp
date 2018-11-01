@@ -1,0 +1,42 @@
+.Container {
+  margin: 0 auto;
+}
+
+.Paper {
+  width: 60%;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 10px;
+  background-image: linear-gradient(#3b57ca,#55a8d4);
+}
+
+.City {
+  text-align: center;
+  margin: 0;
+  font-size: 32px;
+  color: white;
+}
+
+.IconContainer {
+  text-align: center;
+  font-size: 24px;
+}
+
+.IconContainer i {
+  padding: 5px 0;
+  font-size: 6em;
+  margin-top: 30px;
+}
+
+.InfoContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  grid-row-gap: 15px;
+}
+
+@media(max-width: 600px) {
+  .Paper {
+    width: 80%;
+  }
+}
