@@ -1,15 +1,17 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
 html {
   height: 100%;
-  width: 100%;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  widows: 100%;
-  font-family: sans-serif;
-  background-image: url('./images/balance.jpg');
-  background-repeat: no-repeat;
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+  background-image: url('./assets/images/balance.jpg');
+   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
 }

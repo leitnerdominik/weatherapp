@@ -10,10 +10,17 @@ import ErrorHandler from '../../hoc/ErrorHandler/ErrorHandler';
 import * as actions from '../../store/actions/index';
 
 
-
 const weather = (props) => {
   const {
-    city, country, weatherItems, loading, searched, errorCode, errorMessage, onFetchWeather, onErrorReset,
+    city,
+    country,
+    weatherItems,
+    loading,
+    searched,
+    errorCode,
+    errorMessage,
+    onFetchWeather,
+    onErrorReset,
   } = props;
 
   let weatherItemsContent = null;
@@ -45,19 +52,19 @@ const weather = (props) => {
 
 const mapStateToProps = state => (
   {
-    city: state.city,
-    country: state.country,
-    weatherItems: state.dailyAvarageWeather,
-    loading: state.loading,
-    searched: state.startedSearch,
-    errorCode: state.errorCode,
-    errorMessage: state.errorMessage,
+    city: state.fiveday.city,
+    country: state.fiveday.country,
+    weatherItems: state.fiveday.dailyAvarageWeather,
+    loading: state.fiveday.loading,
+    searched: state.fiveday.startedSearch,
+    errorCode: state.fiveday.errorCode,
+    errorMessage: state.fiveday.errorMessage,
   }
 );
 
 const mapDispatchToProps = dispatch => (
   {
-    onFetchWeather: searchTerm => dispatch(actions.fetchWeather(searchTerm)),
+    onFetchWeather: searchTerm => dispatch(actions.fetchFiveDayForecastWeather(searchTerm)),
     onErrorReset: () => dispatch(actions.resetErrors()),
   }
 );
