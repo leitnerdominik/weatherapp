@@ -3,24 +3,24 @@ import axios from '../../axios-weather';
 
 import API_KEY from '../../api_key';
 
-export const fetchWeatherStart = () => (
+export const fetchFiveDayForecastStart = () => (
   {
-    type: actionTypes.FETCH_WEATHER_START,
+    type: actionTypes.FETCH_FIVEDAYFORECAST_START,
   }
 );
 
-export const fetchWeatherSuccess = (city, country, fiveDayForecast) => (
+export const fetchFiveDayForecastSuccess = (city, country, fiveDayForecast) => (
   {
-    type: actionTypes.FETCH_WEATHER_SUCCESS,
+    type: actionTypes.FETCH_FIVEDAYFORECAST_SUCCESS,
     city,
     country,
     fiveDayForecast,
   }
 );
 
-export const fetchWeatherFailed = (errorCode, errorMessage) => (
+export const fetchFiveDayForecastFailed = (errorCode, errorMessage) => (
   {
-    type: actionTypes.FETCH_WEATHER_FAILED,
+    type: actionTypes.FETCH_FIVEDAYFORECAST_FAILED,
     errorCode,
     errorMessage,
   }
@@ -33,20 +33,20 @@ export const setAvarageWeatherData = fiveDayForecast => (
   }
 );
 
-export const fetchWeather = searchTerm => (
+export const fetchFiveDayForecastWeather = searchTerm => (
   (dispatch) => {
-    dispatch(fetchWeatherStart());
+    dispatch(fetchFiveDayForecastStart());
     axios.get(`data/2.5/forecast?q=${searchTerm}&appid=${API_KEY}&units=metric`)
       .then((response) => {
         console.log(response);
         const { name, country } = response.data.city;
         const fiveDayForecast = response.data.list;
-        dispatch(fetchWeatherSuccess(name, country, fiveDayForecast));
+        dispatch(fetchFiveDayForecastSuccess(name, country, fiveDayForecast));
         dispatch(setAvarageWeatherData(fiveDayForecast));
       })
       .catch((error) => {
         const { cod, message } = error.response.data;
-        dispatch(fetchWeatherFailed(cod, message));
+        dispatch(fetchFiveDayForecastFailed(cod, message));
       });
   }
 );

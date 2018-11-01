@@ -86,7 +86,7 @@ const calcAvarageData = (forecastArr) => {
 
 const reducer = (state = initalState, action) => {
   switch (action.type) {
-    case actionTypes.FETCH_WEATHER_START:
+    case actionTypes.FETCH_FIVEDAYFORECAST_START:
       return {
         ...state,
         errorMessage: null,
@@ -94,7 +94,7 @@ const reducer = (state = initalState, action) => {
         loading: true,
         startedSearch: true,
       };
-    case actionTypes.FETCH_WEATHER_SUCCESS:
+    case actionTypes.FETCH_FIVEDAYFORECAST_SUCCESS:
       return {
         ...state,
         errorMessage: null,
@@ -104,7 +104,7 @@ const reducer = (state = initalState, action) => {
         fiveDayForecast: action.fiveDayForecast,
         loading: false,
       };
-    case actionTypes.FETCH_WEATHER_FAILED:
+    case actionTypes.FETCH_FIVEDAYFORECAST_FAILED:
       return {
         ...state,
         errorMessage: action.errorMessage,
