@@ -13,6 +13,7 @@ const styles = () => ({
   root: {
     flexGrow: 1,
     margin: '10px auto',
+    width: '80%',
   },
 });
 

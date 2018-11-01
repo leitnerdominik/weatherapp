@@ -3,6 +3,8 @@
   height: 280px;
   padding: 5px;
   cursor: pointer;
+  font-size: 1.2em;
+  background-image: linear-gradient(#3b57ca,#55a8d4);
 }
 
 .Paper p {
@@ -21,4 +23,11 @@
 .IconContainer i {
   font-size: 64px;
   margin-bottom: 20px;
+}
+
+.CurrentDate {
+  margin: 0;
+  font-size: 1.3em;
+  text-align: center;
+  font-weight: normal;
 }

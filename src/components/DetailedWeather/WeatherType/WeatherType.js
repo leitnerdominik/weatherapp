@@ -10,12 +10,8 @@ const weatherType = (props) => {
   } = props;
 
   return (
-    <Grid item xs={3}>
-      <Paper style={{
-        margin: '0 5px',
-        paddingTop: '5px',
-      }}
-      >
+    <Grid item>
+      <Paper className={classes.Paper}>
         <div className={classes.IconContainer}>
           <i className={description.iconClass} />
         </div>

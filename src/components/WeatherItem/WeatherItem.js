@@ -16,7 +16,7 @@ const weatherItem = (props) => {
   return (
     <Grid item>
       <Paper className={classes.Paper} onClick={() => clicked(date)}>
-        <p>{weatherDate}</p>
+        <h1 className={classes.CurrentDate}>{weatherDate}</h1>
         <div className={classes.IconContainer}>
           <i className={iconClass} />
           <p>{weatherLabel}</p>
