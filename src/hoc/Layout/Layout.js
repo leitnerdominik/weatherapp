@@ -33,7 +33,7 @@ class Layout extends Component {
 
     return (
       <Aux>
-        <Toolbar drawerClicked={this.sideDrawerToggleHandler} />
+        <Toolbar drawerClicked={this.sideDrawerToggleHandler} sideDrawerOpen={showSideDrawer} />
         <SideDrawer open={showSideDrawer} closed={this.sideDrawerClosedHandler} />
         <main className={classes.Content}>
           {children}
