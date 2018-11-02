@@ -1,9 +1,10 @@
 export {
   fetchFiveDayForecastWeather,
   setDetailedWeatherData,
-  resetErrors,
+  resetFivedayErrors,
 } from './fiveDayForecast';
 
 export {
   fetchTodayForecastWeather,
+  resetTodayErrors,
 } from './todayForecast';

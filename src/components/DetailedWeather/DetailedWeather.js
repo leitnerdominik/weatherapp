@@ -22,8 +22,6 @@ class DetailedWeather extends Component {
       onFetchDayWeather(date);
     }
 
-    console.log(this.props);
-
     ReactChartkick.addAdapter(Chart);
   }
 

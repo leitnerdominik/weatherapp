@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Aux from '../../../hoc/Auxiliary/Auxiliary';
 import Backdrop from '../../UI/Backdrop/Backdrop';
@@ -16,12 +17,16 @@ const sideDrawer = (props) => {
     attachedClasses = [classes.SideDrawer, classes.Open];
   }
 
+
   return (
     <Aux>
       <Backdrop show={open} clicked={closed} />
-      <div className={attachedClasses.join(' ')} onClick={closed}>
+      /* eslint ignore line
+      <div className={attachedClasses.join(' ')} onClick={closed} role="main">
         <div className={classes.Logo}>
-          <Logo />
+          <Link to="/">
+            <Logo />
+          </Link>
         </div>
         <nav>
           <NavigationItems />

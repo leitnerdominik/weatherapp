@@ -17,7 +17,7 @@
 }
 
 .TextField div::after {
-  border-bottom-color: #1E52F6;
+  border-bottom-color: white;
 }
 
 .TextField div::before {

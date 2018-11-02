@@ -7,7 +7,7 @@ import cssClasses from './InputField.css';
 
 const styles = ({
   shrink: {
-    color: '#1E52F6 !important',
+    color: 'white !important',
   },
 });
 
