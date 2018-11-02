@@ -65,7 +65,7 @@ const mapStateToProps = state => (
 const mapDispatchToProps = dispatch => (
   {
     onFetchWeather: searchTerm => dispatch(actions.fetchFiveDayForecastWeather(searchTerm)),
-    onErrorReset: () => dispatch(actions.resetErrors()),
+    onErrorReset: () => dispatch(actions.resetFivedayErrors()),
   }
 );
 

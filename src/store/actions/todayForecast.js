@@ -31,7 +31,6 @@ export const fetchTodayForecastWeather = searchTerm => (
     dispatch(fetchTodayForecastStart());
     axios.get(`data/2.5/weather?q=${searchTerm}&appid=${API_KEY}&units=metric`)
       .then((response) => {
-        console.log(response);
         const city = response.data.name;
         const tempDataObj = response.data.main;
         const weatherDataObj = response.data.weather;
@@ -43,5 +42,11 @@ export const fetchTodayForecastWeather = searchTerm => (
         const { cod, message } = error.response.data;
         dispatch(fetchTodayForecastFailed(cod, message));
       });
+  }
+);
+
+export const resetTodayErrors = () => (
+  {
+    type: actionTypes.RESET_TODAYDAYFORECAST_ERRORS,
   }
 );

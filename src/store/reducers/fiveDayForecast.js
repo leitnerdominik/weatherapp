@@ -156,7 +156,7 @@ const reducer = (state = initalState, action) => {
         currentDate: date,
       };
     }
-    case actionTypes.RESET_ERRORS:
+    case actionTypes.RESET_FIVEDAYFORECAST_ERRORS:
       return {
         ...state,
         errorCode: null,

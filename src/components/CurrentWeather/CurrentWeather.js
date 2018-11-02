@@ -6,6 +6,7 @@ import InputField from '../../containers/InputField/InputField';
 import Aux from '../../hoc/Auxiliary/Auxiliary';
 import Spinner from '../UI/Spinner/Spinner';
 import { mapToWeatherJson } from '../../shared/util';
+import ErrorHandler from '../../hoc/ErrorHandler/ErrorHandler';
 
 import * as actions from '../../store/actions/index';
 import classes from './CurrentWeather.css';
@@ -13,10 +14,13 @@ import classes from './CurrentWeather.css';
 const currentWeather = (props) => {
   const {
     onFetchWeather,
+    onErrorReset,
     city,
     searched,
     loading,
     weatherData,
+    errorCode,
+    errorMessage,
   } = props;
 
   let todayForecast = null;
@@ -64,6 +68,11 @@ const currentWeather = (props) => {
   return (
     <Aux>
       <InputField submit={onFetchWeather} />
+      <ErrorHandler
+        errorCode={errorCode}
+        errorMessage={errorMessage}
+        close={onErrorReset}
+      />
       {todayForecast}
     </Aux>
   );
@@ -75,12 +84,15 @@ const mapStateToProps = state => (
     searched: state.today.startedSearch,
     loading: state.today.loading,
     weatherData: state.today.weatherDataObj,
+    errorCode: state.today.errorCode,
+    errorMessage: state.today.errorMessage,
   }
 );
 
 const mapDispatchToProps = dispatch => (
   {
     onFetchWeather: searchTerm => dispatch(actions.fetchTodayForecastWeather(searchTerm)),
+    onErrorReset: () => dispatch(actions.resetTodayErrors()),
   }
 );
 

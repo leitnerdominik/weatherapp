@@ -31,12 +31,20 @@ const reducer = (state = initalState, action) => {
         city: action.city,
       };
     }
-    case action.FETCH_TODAYDAYFORECAST_FAILED:
+    case actionTypes.FETCH_TODAYDAYFORECAST_FAILED:
       return {
         ...state,
         loading: false,
         errorCode: action.errorCode,
         errorMessage: action.errorMessage,
+      };
+    case actionTypes.RESET_TODAYDAYFORECAST_ERRORS:
+      return {
+        ...state,
+        loading: false,
+        errorCode: null,
+        errorMessage: null,
+        startedSearch: false,
       };
     default:
       return state;
