@@ -31,7 +31,7 @@ const weather = (props) => {
   if (!loading && weatherItems.length > 0) {
     weatherItemsContent = (
       <Aux>
-        <Title titleCity={city} titleCountry={country} />
+        <Title>{city}, {country}</Title>
         <WeatherItems items={weatherItems} />
       </Aux>
     );
@@ -39,6 +39,7 @@ const weather = (props) => {
 
   return (
     <div>
+      <Title>5 DAY FORECAST</Title>
       <InputField submit={onFetchWeather} />
       <ErrorHandler
         errorCode={errorCode}

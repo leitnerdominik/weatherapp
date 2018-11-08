@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const title = (props) => {
-  const { titleCity, titleCountry } = props;
+  const { children } = props;
   return (
     <h1 style={{
       textAlign: 'center',
@@ -11,16 +10,9 @@ const title = (props) => {
       color: 'white',
     }}
     >
-      { titleCity }
-      { ', ' }
-      { titleCountry }
+      {children}
     </h1>
   );
-};
-
-title.propTypes = {
-  titleCity: PropTypes.string.isRequired,
-  titleCountry: PropTypes.string.isRequired,
 };
 
 export default title;

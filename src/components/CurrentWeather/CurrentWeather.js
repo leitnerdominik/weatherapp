@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import InputField from '../../containers/InputField/InputField';
 import Aux from '../../hoc/Auxiliary/Auxiliary';
 import Spinner from '../UI/Spinner/Spinner';
+import Title from '../Title/Title';
 import { mapToWeatherJson } from '../../shared/util';
 import ErrorHandler from '../../hoc/ErrorHandler/ErrorHandler';
 
@@ -67,6 +68,7 @@ const currentWeather = (props) => {
 
   return (
     <Aux>
+      <Title>CURRENT WEATHER</Title>
       <InputField submit={onFetchWeather} />
       <ErrorHandler
         errorCode={errorCode}
